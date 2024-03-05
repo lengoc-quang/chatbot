@@ -10,6 +10,35 @@ import subprocess
 import os
 
 k=PyKeyboard()
+api_key=os.getenv("API_KEY")
+
+with st.sidebar:
+    st.markdown(
+        """
+       <style>
+       [data-testid="stSidebar"][aria-expanded="true"]{
+           min-width: 330px;
+           max-width: 330px;
+       }
+       """,
+        unsafe_allow_html=True,
+    )
+    if api_key=='YOUR_API_KEY' or api_key='':
+        api_key = st.text_input("API Key", key="api_key", type="password")
+        "[Get a Gemini API key](https://aistudio.google.com/app/apikey)"
+    st.image("icon.jpg")
+    st.title("Welcome back!")
+    if st.sidebar.button("➕ New chat"):
+        now = datetime.now()
+        now = now.strftime("[%d-%m-%Y %H:%M:%S] ")
+        f=open("history.log", "a", encoding='utf-8')
+        f.write("*****************************************************\n")
+        f.write(now + "Restarted process.\n")
+        f.write("*****************************************************\n")
+        f.close()
+        k.tap_key(k.function_keys[5])
+    if st.sidebar.button("Open chat history"):
+        subprocess.Popen("history.log", shell=True)
 
 def unmark_element(element, stream=None):
     if stream is None:
@@ -33,7 +62,7 @@ def unmark(text):
     return __md.convert(text)
 
 # Initialize Gemini-Pro 
-genai.configure(api_key=os.getenv("API_KEY")
+genai.configure(api_key=api_key)
 model = genai.GenerativeModel('gemini-pro')
 
 # Gemini uses 'model' for assistant; Streamlit uses 'assistant'
@@ -58,43 +87,22 @@ for message in st.session_state.chat.history:
 
 # Accept user's next message, add to context, resubmit context to Gemini
 if prompt := st.chat_input("Enter question here..."):
-    # Display user's last message
-    st.chat_message("user").markdown(prompt)
-    f=open('history.log', "a", encoding='utf-8')
-    f.write("You: " + unmark(prompt) +"\n\n")
-    f.close()
-
-    # Send user entry to Gemini and read the response
-    response = st.session_state.chat.send_message(prompt) 
-    
-    # Display last 
-    with st.chat_message("assistant"):
-        st.markdown(response.text)
+    if api_key != '':
+        # Display user's last message
+        st.chat_message("user").markdown(prompt)
         f=open('history.log', "a", encoding='utf-8')
-        f.write("Chatbot: "+unmark(response.text) + "\n\n")
+        f.write("You: " + unmark(prompt) +"\n\n")
         f.close()
+    
+        # Send user entry to Gemini and read the response
+        response = st.session_state.chat.send_message(prompt) 
         
-with st.sidebar:
-    st.markdown(
-        """
-       <style>
-       [data-testid="stSidebar"][aria-expanded="true"]{
-           min-width: 330px;
-           max-width: 330px;
-       }
-       """,
-        unsafe_allow_html=True,
-    )   
-    st.image("icon.jpg")
-    st.title("Welcome back!")
-    if st.sidebar.button("➕ New chat"):
-        now = datetime.now()
-        now = now.strftime("[%d-%m-%Y %H:%M:%S] ")
-        f=open("history.log", "a", encoding='utf-8')
-        f.write("*****************************************************\n")
-        f.write(now + "Restarted process.\n")
-        f.write("*****************************************************\n")
-        f.close()
-        k.tap_key(k.function_keys[5])
-    if st.sidebar.button("Open chat history"):
-        subprocess.Popen("history.log", shell=True)
+        # Display last 
+        with st.chat_message("assistant"):
+            st.markdown(response.text)
+            f=open('history.log', "a", encoding='utf-8')
+            f.write("Chatbot: "+unmark(response.text) + "\n\n")
+            f.close()
+    else:
+        st.warning('Missing API key', icon="⚠️")
+            
