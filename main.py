@@ -7,6 +7,7 @@ from io import StringIO
 from pykeyboard import PyKeyboard
 from datetime import datetime
 import subprocess
+import os
 
 k=PyKeyboard()
 
@@ -32,7 +33,7 @@ def unmark(text):
     return __md.convert(text)
 
 # Initialize Gemini-Pro 
-genai.configure(api_key='AIzaSyAUw4IiRZLefnRl2Inl5Ryyifr6l0gaLak')
+genai.configure(api_key=os.getenv("API_KEY")
 model = genai.GenerativeModel('gemini-pro')
 
 # Gemini uses 'model' for assistant; Streamlit uses 'assistant'
