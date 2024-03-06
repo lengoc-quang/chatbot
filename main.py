@@ -57,7 +57,7 @@ with st.sidebar:
         f.write(now + "Restarted process.\n")
         f.write("*****************************************************\n")
         f.close()
-        k.tap_key(k.function_keys[5]
+        k.tap_key(k.function_keys[5])
                   
     # st.markdown("#### Previous chat")
     # if st.sidebar.button("Open chat history", help="Open a log file that contain chat history."):
