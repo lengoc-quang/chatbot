@@ -47,7 +47,7 @@ with st.sidebar:
     genai.configure(api_key=GOOGLE_API_KEY)
         # Initialize Gemini-Pro 
     model = genai.GenerativeModel('gemini-pro')
-    st.image("icon.jpg")
+#    st.image("icon.jpg")
     st.title("Welcome back!")
 #    if st.sidebar.button("↻  Reload chat", help="Reload page."):
  #       now = datetime.now()
