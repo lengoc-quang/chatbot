@@ -42,13 +42,13 @@ with st.sidebar:
        """,
         unsafe_allow_html=True,
     )
+    st.title("Welcome back!")
     GOOGLE_API_KEY = st.text_input("API Key", key="api_key", type="password")
     st.markdown("[Get a Gemini API key](https://aistudio.google.com/app/apikey)")
     genai.configure(api_key=GOOGLE_API_KEY)
         # Initialize Gemini-Pro 
     model = genai.GenerativeModel('gemini-pro')
 #    st.image("icon.jpg")
-    st.title("Welcome back!")
 #    if st.sidebar.button("↻  Reload chat", help="Reload page."):
  #       now = datetime.now()
   #      now = now.strftime("[%d-%m-%Y %H:%M:%S] ")
