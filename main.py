@@ -4,11 +4,11 @@ import streamlit as st
 import google.generativeai as genai
 from markdown import Markdown
 from io import StringIO
-from pykeyboard import PyKeyboard
+# from pykeyboard import PyKeyboard
 from datetime import datetime
 import subprocess
 
-k=PyKeyboard()
+# k=PyKeyboard()
 
 def unmark_element(element, stream=None):
     if stream is None:
@@ -49,15 +49,15 @@ with st.sidebar:
     model = genai.GenerativeModel('gemini-pro')
     st.image("icon.jpg")
     st.title("Welcome back!")
-    if st.sidebar.button("↻  Reload chat", help="Reload page."):
-        now = datetime.now()
-        now = now.strftime("[%d-%m-%Y %H:%M:%S] ")
-        f=open("history.log", "a", encoding='utf-8')
-        f.write("*****************************************************\n")
-        f.write(now + "Restarted process.\n")
-        f.write("*****************************************************\n")
-        f.close()
-        k.tap_key(k.function_keys[5])
+#    if st.sidebar.button("↻  Reload chat", help="Reload page."):
+ #       now = datetime.now()
+  #      now = now.strftime("[%d-%m-%Y %H:%M:%S] ")
+   #     f=open("history.log", "a", encoding='utf-8')
+    #    f.write("*****************************************************\n")
+     #   f.write(now + "Restarted process.\n")
+      #  f.write("*****************************************************\n")
+       # f.close()
+        #k.tap_key(k.function_keys[5])
                   
     # st.markdown("#### Previous chat")
     # if st.sidebar.button("Open chat history", help="Open a log file that contain chat history."):
