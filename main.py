@@ -45,6 +45,7 @@ with st.sidebar:
     genai.configure(api_key=GOOGLE_API_KEY)
         # Initialize Gemini-Pro 
     model = genai.GenerativeModel('gemini-pro')
+    st.markdown("\n\n\n\n\n\n\n\n\n Made by lengoc-quang")
 
 
 # Gemini uses 'model' for assistant; Streamlit uses 'assistant'
