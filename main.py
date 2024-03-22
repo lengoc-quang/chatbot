@@ -6,6 +6,7 @@ from markdown import Markdown
 from io import StringIO
 from datetime import datetime
 import subprocess
+import time, random
 
 def unmark_element(element, stream=None):
     if stream is None:
@@ -89,3 +90,6 @@ if prompt := st.chat_input("Enter question here..."):
             f=open('history.log', "a", encoding='utf-8')
             f.write("Chatbot: "+unmark(response.text) + "\n\n")
             f.close()
+while True:
+    time.sleep(5)
+    print("Restarted.")
